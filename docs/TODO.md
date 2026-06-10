@@ -34,7 +34,7 @@
 
 ### 🔄 Fazendo
 
-- [Nenhuma atividade ativa].
+- [ ] GUI.
 
 ### ✅ Feito
 
@@ -46,7 +46,7 @@
 
 ### 🚀 Futuro
 
-- [ ] GUI.
+- [Nenhuma atividade ativa].
 
 ## 🧠 Core
 
