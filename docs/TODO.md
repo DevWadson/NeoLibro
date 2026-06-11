@@ -34,7 +34,7 @@
 
 ### 🔄 Fazendo
 
-- [ ] GUI.
+- [Nenhuma atividade ativa].
 
 ### ✅ Feito
 
@@ -43,10 +43,11 @@
 - [x] Arquitetura
 - [x] Fluxos
 - [x] Banco
+- [x] GUI
 
 ### 🚀 Futuro
 
-- [Nenhuma atividade ativa].
+- [Nenhuma atividade planejada].
 
 ## 🧠 Core
 
