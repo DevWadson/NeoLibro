@@ -220,3 +220,59 @@ Toda inclusão de obras deve passar pela Estante antes de qualquer operação de
 - Validações permanecem centralizadas no domínio;
 - O Repository não assume responsabilidades de negócio;
 - Objetos persistidos já chegam validados à camada de persistência.
+
+## DA14 - Utilização de CustomTkinter
+
+### Contexto
+Era necessário escolher uma biblioteca para a interface gráfica.
+
+### Decisão
+Utilizar CustomTkinter como biblioteca de interface.
+
+### Consequências
+
+- Aproveitamento do conhecimento prévio;
+- Interface moderna sem configuração adicional.
+
+## DA15 - Layout com grid() na estrutura principal
+
+### Contexto
+
+Versões anteriores utilizavam pack() para estruturar o layout principal, criando dependência de ordem de empacotamento.
+
+### Decisão
+
+Utilizar grid() na janela principal e nos frames de layout. pack() permanece permitido dentro de componentes internos.
+
+### Consequências
+
+- Posicionamento explícito e estável;
+- Layout previsível independente da ordem de declaração.
+
+## DA16 - Remoção da ViewArea
+
+### Contexto
+
+Versões anteriores possuíam um terceiro frame (ViewArea) no rodapé sem responsabilidade clara.
+
+### Decisão
+
+Remover a ViewArea e centralizar todo o conteúdo dinâmico na MainArea.
+
+### Consequências
+
+- Estrutura mais simples;
+- Responsabilidades mais bem definidas.
+
+## DA17 - Paginação em Ver Estante
+
+### Contexto
+
+Exibir todas as obras de uma vez pode sobrecarregar a interface conforme o volume cresce.
+### Decisão
+
+Paginar a exibição da estante.
+
+### Consequências
+
+Interface estável independente do volume de obras.
