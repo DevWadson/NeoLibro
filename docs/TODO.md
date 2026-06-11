@@ -1,6 +1,6 @@
 # TODO - NeoLibro
 
-> **Fase atual:** Estruturação e Documentação
+> **Fase atual:** Estruturação e Implementação
 > **Início:** 27/Maio/2026
 
 ## 🧭 Status das Camadas do Sistema
@@ -16,7 +16,7 @@
 
 ### 🔄 Fazendo
 
-- [Nenhuma camada ativa].
+- [ ] 🧠 Core.
 
 ### ✅ Feito
 
@@ -24,7 +24,6 @@
 
 ### 🚀 Futuro
 
-- [ ] 🧠 Core.
 - [ ] 🗄️ Infraestrutura.
 - [ ] ⚙️ Aplicação.
 - [ ] 🖥️ Interface.
