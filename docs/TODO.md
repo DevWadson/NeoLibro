@@ -1,6 +1,6 @@
 # TODO - NeoLibro
 
-> **Fase atual:** Estruturação e Documentação
+> **Fase atual:** Implementação
 > **Início:** 27/Maio/2026
 
 ## 🧭 Status das Camadas do Sistema
