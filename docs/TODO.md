@@ -16,11 +16,11 @@
 
 ### 🔄 Fazendo
 
-- [ ] 📚 Documentação.
+- [Nenhuma camada ativa].
 
 ### ✅ Feito
 
-- [Nenhuma camada concluída].
+- [x] 📚 Documentação.
 
 ### 🚀 Futuro
 
