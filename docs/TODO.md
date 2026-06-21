@@ -16,17 +16,17 @@
 
 ### 🔄 Fazendo
 
-- [ ] ⚙️ Aplicação
+- [ ] 🖥️ Interface
 
 ### ✅ Feito
 
 - [x] 📚 Documentação
 - [x] 🧠 Core
 - [x] 🗄️ Infraestrutura
+- [x] ⚙️ Aplicação
 
 ### 🚀 Futuro
 
-- [ ] 🖥️ Interface
 - [ ] 🧪 Testes
 
 ## 📚 Documentação
