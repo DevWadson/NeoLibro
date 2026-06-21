@@ -1,6 +1,6 @@
 """Módulo de banco de dados do NeoLibro.
 
-Exporta base, modelos e schemas Pydantic.
+Expõe modelos SQLAlchemy e a inicialização da conexão.
 """
 from .models import HqModel, LivroModel, MangaModel, ObraModel
-from .base import Base, create_tables
+from .connection import setup_database
