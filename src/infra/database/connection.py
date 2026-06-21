@@ -38,7 +38,7 @@ def _create_session_factory(engine: Engine) -> sessionmaker:
     """
     return sessionmaker(bind=engine)
 
-def run() -> Session:
+def setup_database() -> Session:
     """Inicializa a conexão com o banco e retorna uma sessão ativa.
 
     Resolve a URL de banco ativa, cria a engine, garante a criação
