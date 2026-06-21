@@ -16,16 +16,16 @@
 
 ### 🔄 Fazendo
 
-- [ ] 🗄️ Infraestrutura
+- [ ] ⚙️ Aplicação
 
 ### ✅ Feito
 
 - [x] 📚 Documentação
 - [x] 🧠 Core
+- [x] 🗄️ Infraestrutura
 
 ### 🚀 Futuro
 
-- [ ] ⚙️ Aplicação
 - [ ] 🖥️ Interface
 - [ ] 🧪 Testes
 
@@ -71,7 +71,9 @@
 
 ### ✅ Feito
 
-- [Nenhuma atividade concluída].
+- [x] Database.
+- [x] Models.
+- [x] Repository.
 
 ### 🚀 Futuro
 
