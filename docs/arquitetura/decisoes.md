@@ -269,10 +269,91 @@ Remover a ViewArea e centralizar todo o conteúdo dinâmico na MainArea.
 ### Contexto
 
 Exibir todas as obras de uma vez pode sobrecarregar a interface conforme o volume cresce.
+
 ### Decisão
 
 Paginar a exibição da estante.
 
 ### Consequências
 
-Interface estável independente do volume de obras.
+- Interface estável independente do volume de obras.
+
+## DA18 - Botões do menu delegam renderização à MainArea
+
+### Contexto
+
+Os botões do menu precisam provocar mudanças no conteúdo exibido na MainArea. Na v5, o botão construía o conteúdo diretamente no frame de referência.
+
+### Decisão
+
+O botão não constrói conteúdo. Ao ser clicado, chama um método da MainArea via referência direta. A MainArea é responsável por construir e gerenciar o próprio conteúdo.
+
+### Consequências
+
+- MainArea cresce um método por ação do menu;
+- O botão fica simples e sem conhecimento de layout.
+
+## DA19 - Botões do menu herdam CTkButton
+
+### Contexto
+
+Cada botão do menu poderia ser uma instância direta de CTkButton criada por MenuArea, ou uma classe própria.
+
+### Decisão
+
+Botões do menu herdam CTkButton. A herança se justifica pela existência de função característica própria (_on_click), não apenas configuração.
+
+### Consequências
+
+- Cada botão do menu é uma classe em src/gui/components/;
+- Botões sem comportamento próprio não justificam essa herança.
+
+## DA20 - Referência à MainArea injetada via construtor
+
+### Contexto
+
+O botão precisa de uma referência à MainArea para disparar o método correspondente.
+
+### Decisão
+
+A referência é recebida no construtor. Window instancia o botão passando main_area explicitamente.
+
+### Consequências
+
+- O botão está pronto para uso desde a inicialização, sem necessidade de configuração posterior.
+
+## DA21 - _available_map pertence ao __init__ da MainArea
+
+### Contexto
+
+MainArea mantém um mapeamento de tipos de obra para seus formulários correspondentes.
+
+### Decisão
+
+_available_map é inicializado no __init__, não recriado a cada chamada de método. É um mapeamento fixo do ciclo de vida da instância.
+
+### Consequências
+
+- O mapeamento é criado uma vez;
+- Métodos que o utilizam apenas leem, não recriam.
+
+## DA22 - Relação de imports entre camadas
+
+### Contexto
+
+Imports diretos a submódulos internos de outra camada criam acoplamento à organização interna do pacote. Qualquer refatoração interna — renomear um módulo, mover um arquivo — propaga quebras para quem importa. Sem uma regra explícita, esse padrão tende a se espalhar silenciosamente.
+
+### Decisão
+
+Imports entre camadas devem acessar somente a API pública da camada, exposta pelo __init__.py. Subpacote direto só é válido se declarado como API pública no __init__ do pacote pai. Import até o módulo sempre viola.
+
+```python
+from src.camada import X                    # correto
+from src.camada.subpacote import X          # viola, exceto se declarado no __init__ do pacote pai
+from src.camada.subpacote.modulo import X   # viola sempre
+```
+
+### Consequências
+
+- Refatorações internas de uma camada não propagam para outras;
+- A API pública de cada camada é explícita e controlada pelo __init__.py.
