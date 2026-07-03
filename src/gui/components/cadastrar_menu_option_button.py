@@ -1,0 +1,19 @@
+"""Botão de menu para acesso ao cadastro de obras."""
+from customtkinter import CTkButton
+
+class CadastrarMenuOptionButton(CTkButton):
+    """Botão do menu que aciona a tela de cadastro de obras."""
+    def __init__(self, parent, main_area, **kwargs) -> None:
+        """Inicializa o botão com referência à MainArea.
+
+        Args:
+            parent: Widget pai ao qual o botão será anexado.
+            main_area: Instância de MainArea a ser notificada ao clicar.
+        """
+        super().__init__(parent, text="Cadastrar", **kwargs)
+        self.main_area = main_area
+        self.configure(command=self._on_click)
+
+    def _on_click(self) -> None:
+        """Notifica a MainArea para exibir as opções de cadastro."""
+        self.main_area.mostrar_opcoes_cadastro()
