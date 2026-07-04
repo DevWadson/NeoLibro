@@ -4,8 +4,8 @@ Define a classe ObraRepository para persistência
 de obras em banco de dados.
 """
 from sqlalchemy.orm import Session
-from src.infra.database import HqModel, LivroModel, MangaModel, ObraModel
-from src.core.models import HQ, Livro, Manga, Obra
+from src.infra.database.models import HqModel, LivroModel, MangaModel, ObraModel
+from src.core import HQ, Livro, Manga, Obra
 
 class ObraRepository:
     """Repositório para operações CRUD de obras.
