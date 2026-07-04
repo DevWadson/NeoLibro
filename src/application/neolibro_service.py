@@ -3,8 +3,7 @@
 Orquestra a Estante e o Repository para coordenar
 os casos de uso de cadastro e consulta de obras.
 """
-from src.core import Estante, Obra
-from src.core.exceptions.neolibro_error import NeoLibroError
+from src.core import Estante, Obra, NeoLibroError
 from src.infra import ObraRepository
 
 class NeoLibroService:
