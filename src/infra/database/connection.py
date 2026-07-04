@@ -5,8 +5,8 @@ completa da engine, tabelas e sessão SQLAlchemy.
 """
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
+from src.config import get_active_db_url
 from .base import Base
-from src.config import get_active_database_url
 
 def _get_engine(conn_url: str) -> Engine:
     """Cria a engine de conexão com o banco de dados.
@@ -47,7 +47,7 @@ def setup_database() -> Session:
     Returns:
         Sessão SQLAlchemy ativa, vinculada à engine inicializada.
     """
-    url = get_active_database_url()
+    url = get_active_db_url()
     engine = _get_engine(url)
     _create_tables(engine)
     session_factory = _create_session_factory(engine)
