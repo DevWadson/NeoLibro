@@ -5,7 +5,10 @@ de obras em memória com operações CRUD.
 """
 from typing import cast
 from ..exceptions import DuplicateWorkError, MissingSearchCriteriaError
-from . import HQ, Livro, Manga, Obra
+from .obra import Obra
+from .hq import HQ
+from .livro import Livro
+from .manga import Manga
 
 class Estante:
     """Classe para gerenciamento de obras em memória.
