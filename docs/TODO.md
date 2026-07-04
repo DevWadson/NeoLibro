@@ -16,7 +16,7 @@
 
 ### 🔄 Fazendo
 
-- [ ] 🖥️ Interface
+- [Nenhuma atividade ativa].
 
 ### ✅ Feito
 
@@ -24,6 +24,7 @@
 - [x] 🧠 Core
 - [x] 🗄️ Infraestrutura
 - [x] ⚙️ Aplicação
+- [x] 🖥️ Interface
 
 ### 🚀 Futuro
 
@@ -87,7 +88,7 @@
 
 ### ✅ Feito
 
-- [Nenhuma atividade concluída].
+- [x] NeoLibroService.
 
 ### 🚀 Futuro
 
@@ -101,11 +102,12 @@
 
 ### ✅ Feito
 
-- [Nenhuma atividade concluída].
+- [x] Components
+- [x] Layouts
 
 ### 🚀 Futuro
 
-- [Nenhuma atividade planejada].
+- [ ] Forms
 
 ## 🧪 Testes
 
