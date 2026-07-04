@@ -1,12 +1,11 @@
-.venv/
 .git/
-.env/
+.pytest_cache/
+.venv/
 
 *.db
+*.pyc
 *.sqbpro
 
+.env
 __pycache__
-*.pyc
-
-.pytest_cache/
 uv.lock
