@@ -75,3 +75,11 @@ class NeoLibroService:
 
         if titulo:
             return self._estante.buscar_por_titulo(titulo=titulo)
+
+    def ver_estante(self) -> list[Obra]:
+        """Retorna todas as obras atualmente na estante em memória.
+
+        Returns:
+            Lista com todas as obras armazenadas na estante.
+        """
+        return self._estante.ver_estante()
