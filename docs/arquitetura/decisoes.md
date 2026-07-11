@@ -357,3 +357,20 @@ from src.camada.subpacote.modulo import X   # viola sempre
 
 - Refatorações internas de uma camada não propagam para outras;
 - A API pública de cada camada é explícita e controlada pelo __init__.py.
+
+## DA23 - Divisão de Estante.consultar() em Métodos por Critério
+
+### Contexto
+
+`Estante.consultar()` recebia `codigo` e `titulo` como parâmetros opcionais e misturava duas responsabilidades diferentes num único método: busca exata por código (que retorna no máximo uma obra) e busca parcial por título (que pode retornar várias). O tipo de retorno declarado (`list[Obra]`) não refletia o caso de busca por código, e essa mesma ambiguidade se propagava para `NeoLibroService.consultar()`, que não possuía `return` explícito quando nenhum dos dois critérios era informado, quebrando o contrato de tipo em silêncio.
+
+### Decisão
+
+`consultar()` foi dividido em dois métodos com responsabilidade única: `buscar_por_codigo()`, que retorna a obra encontrada ou levanta `WorkNotFoundByCodeError`, e `buscar_por_titulo()`, que retorna uma lista (podendo vir vazia) ou levanta `WorkNotFoundByTitleError` quando o título é vazio ou não encontrado. A coordenação entre os dois critérios — decidir qual busca executar, e validar que ao menos um foi informado — deixou de pertencer à Estante e passou para `NeoLibroService.consultar()`, que levanta `MissingSearchCriteriaError` quando nenhum critério é passado. Como consequência, `MissingSearchCriteriaError` passou a ser exposta na API pública do Core (`core/__init__.py`), para uso pela Application.
+
+### Consequências
+
+- O contrato de retorno de cada busca ficou explícito e correto para o que representa, eliminando a inconsistência de tipo que existia antes;
+- A responsabilidade de coordenação entre critérios de busca ficou isolada na Application, coerente com o papel de orquestração dessa camada;
+- `Estante` não possui mais um método `consultar()`; camadas superiores que buscam obras devem chamar `buscar_por_codigo()` ou `buscar_por_titulo()` diretamente, ou delegar essa decisão à Application;
+- A busca combinada por código e título (quando ambos são informados) permanece como Future, não resolvida por este refactor.
