@@ -3,7 +3,7 @@
 Orquestra a Estante e o Repository para coordenar
 os casos de uso de cadastro e consulta de obras.
 """
-from src.core import Estante, Obra, NeoLibroError
+from src.core import Estante, Obra, NeoLibroError, MissingSearchCriteriaError
 from src.infra import ObraRepository
 
 class NeoLibroService:
@@ -14,9 +14,6 @@ class NeoLibroService:
     """
     def __init__(self, estante: Estante, repo: ObraRepository) -> None:
         """Inicializa o serviço com estante e repositório.
-
-        Configura o mapeamento entre modelos de domínio
-        e modelos de banco de dados.
 
         Args:
             estante: Instância de Estante para gerenciamento
@@ -48,7 +45,7 @@ class NeoLibroService:
         except (NeoLibroError, ValueError, TypeError) as exc:
             raise NeoLibroError(f'Erro ao cadastrar obra "{obra.titulo}"') from exc
 
-    def consultar(self, codigo: str=None, titulo: str=None) -> list[Obra]:
+    def consultar(self, codigo: str=None, titulo: str=None) -> Obra | list[Obra]:
         """Consulta obras na estante por código ou título.
 
         Delega a busca para a estante em memória, que é a
@@ -59,9 +56,22 @@ class NeoLibroService:
             titulo: Título para busca parcial (opcional).
 
         Returns:
-            Lista de obras encontradas.
+            A obra encontrada, se a busca for por código, ou a lista de
+            obras encontradas, se a busca for por título.
+
+        Raises:
+            MissingSearchCriteriaError: Se nem código nem título forem informados.
+            WorkNotFoundByCodeError: Se a busca por código não encontrar nenhuma obra.
+            WorkNotFoundByTitleError: Se a busca por título não encontrar nenhuma obra.
         """
+        codigo_valido: bool = codigo is not None and codigo.strip() != ""
+        titulo_valido: bool = titulo is not None and titulo.strip() != ""
+
+        if not (codigo_valido or titulo_valido):
+            raise MissingSearchCriteriaError()
+
         if codigo:
-            return self._estante.consultar(codigo=codigo)
+            return self._estante.buscar_por_codigo(codigo=codigo)
+
         if titulo:
-            return self._estante.consultar(titulo=titulo)
+            return self._estante.buscar_por_titulo(titulo=titulo)
