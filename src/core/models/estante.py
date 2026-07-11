@@ -4,7 +4,11 @@ Define a classe Estante para gerenciamento
 de obras em memória com operações CRUD.
 """
 from typing import cast
-from ..exceptions import DuplicateWorkError, MissingSearchCriteriaError
+from ..exceptions import (
+    DuplicateWorkError,
+    WorkNotFoundByCodeError,
+    WorkNotFoundByTitleError
+)
 from .obra import Obra
 from .hq import HQ
 from .livro import Livro
@@ -118,32 +122,49 @@ class Estante:
 
         return obra
 
-    def consultar(self, titulo: str|None=None, codigo: str|None=None) -> list[Obra]:
-        """Busca obras por código ou título.
+    def buscar_por_codigo(self, codigo: str) -> Obra:
+        """Busca uma obra pelo código exato.
 
         Args:
-            titulo: Título para busca (opcional).
-            codigo: Código para busca (opcional).
+            codigo: Código da obra a ser buscada.
 
         Returns:
-            Lista de obras encontradas.
-        """
-        codigo_valido: bool = codigo is not None and codigo.strip() != ""
-        titulo_valido: bool = titulo is not None and titulo.strip() != ""
+            A obra encontrada.
 
-        if not (codigo_valido or titulo_valido):
-            raise MissingSearchCriteriaError()
+        Raises:
+            WorkNotFoundByCodeError: Se nenhuma obra com o código informado for encontrada.
+        """
+        for colecao in self._domain_map.values():
+            for obra in colecao:
+                if obra.codigo == codigo:
+                    return obra
+
+        raise WorkNotFoundByCodeError(codigo)
+
+    def buscar_por_titulo(self, titulo: str) -> list[Obra]:
+        """Busca obras cujo título contenha o termo informado.
+
+        Args:
+            titulo: Termo a ser buscado, por correspondência parcial no título.
+
+        Returns:
+            Lista de obras cujo título contém o termo buscado.
+
+        Raises:
+            WorkNotFoundByTitleError: Se o título informado for vazio, ou se
+                nenhuma obra for encontrada.
+        """
+        if titulo.strip() == "":
+            raise WorkNotFoundByTitleError(titulo)
 
         achados: list[Obra] = []
-        for collection in self._domain_map.values():  #Custo: Temporal
-            for obra in collection:
-                if codigo and codigo == obra.codigo:
-                    return [obra]
-
-                elif titulo and titulo in obra.titulo:
+        for colecao in self._domain_map.values():  #Custo: Temporal
+            for obra in colecao:
+                if titulo in obra.titulo:
                     achados.append(obra)
 
-                # TODO: Future-> Verificar se ambos critérios foram passados
+        if len(achados) < 1:
+            raise WorkNotFoundByTitleError(titulo)
 
         return achados
 
