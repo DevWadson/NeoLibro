@@ -1,6 +1,7 @@
 .git/
 .pytest_cache/
 .venv/
+.vscode/
 
 *.db
 *.pyc
