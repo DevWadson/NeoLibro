@@ -5,7 +5,8 @@ da interface conforme as ações do menu.
 """
 from customtkinter import CTkButton, CTkEntry, CTkFrame
 from src.application import NeoLibroService
-from src.core import HQ, Livro, Manga
+from src.core import HQ, Livro, Manga, Obra
+from ..forms import HQForm, LivroForm, MangaForm
 
 class MainArea(CTkFrame):
     """Frame principal que gerencia o conteúdo dinâmico da interface.
@@ -21,10 +22,10 @@ class MainArea(CTkFrame):
             nlservice: Instância do serviço de aplicação.
         """
         super().__init__(master=parent, **kwargs)
-        self._available_map: dict = { # TODO: Future->Adicionar os formulários
-            HQ: lambda: None,
-            Livro: lambda: None,
-            Manga: lambda: None
+        self._available_map: dict[type[Obra], type[CTkFrame]] = {
+            HQ: HQForm,
+            Livro: LivroForm,
+            Manga: MangaForm
         }
         self._nlservice = nlservice
 
@@ -34,7 +35,7 @@ class MainArea(CTkFrame):
         Args:
             form: Classe do formulário a ser instanciada e exibida.
         """
-        form(self).pack(fill="both", expand=True)
+        form(self, on_submit=self.cadastrar).pack(fill="both", expand=True)
 
     def mostrar_opcoes_cadastro(self) -> None:
         """Exibe os botões de seleção de tipo para cadastro de obra."""
@@ -52,3 +53,11 @@ class MainArea(CTkFrame):
         titulo.pack()
 
         CTkButton(self, text="Buscar", command=None).pack(padx=10, pady=5)
+
+    def cadastrar(self, obra: Obra):
+        """Encaminha a obra montada pelo formulário para cadastro.
+
+        Args:
+            obra: Obra já construída pelo formulário, pronta para persistência.
+        """
+        self._nlservice.cadastrar(obra)
