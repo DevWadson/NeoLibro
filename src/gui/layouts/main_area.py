@@ -3,7 +3,7 @@
 Responsável por exibir e alternar o conteúdo dinâmico
 da interface conforme as ações do menu.
 """
-from customtkinter import CTkButton, CTkEntry, CTkFrame
+from customtkinter import CTkBaseClass, CTkButton, CTkEntry, CTkFrame
 from src.application import NeoLibroService
 from src.core import HQ, Livro, Manga, Obra
 from ..forms import HQForm, LivroForm, MangaForm
@@ -29,16 +29,26 @@ class MainArea(CTkFrame):
         }
         self._nlservice = nlservice
 
+    def _clear_frame(self) -> None:
+        """Limpa todos os widgets de um frame."""
+        widget: CTkBaseClass
+        for widget in self.winfo_children():
+            widget.destroy()
+
     def _show_form(self, form) -> None:
         """Renderiza o formulário correspondente ao tipo selecionado.
 
         Args:
             form: Classe do formulário a ser instanciada e exibida.
         """
+        self._clear_frame()
+
         form(self, on_submit=self.cadastrar).pack(fill="both", expand=True)
 
     def mostrar_opcoes_cadastro(self) -> None:
         """Exibe os botões de seleção de tipo para cadastro de obra."""
+        self._clear_frame()
+
         for _Available_type, forms in self._available_map.items():
             CTkButton(self,
                 text=_Available_type.__name__,
@@ -47,6 +57,8 @@ class MainArea(CTkFrame):
 
     def mostrar_opcoes_procura(self) -> None:
         """Exibe os campos de busca e o botão de procura."""
+        self._clear_frame()
+
         codigo = CTkEntry(self, placeholder_text="Código")
         titulo = CTkEntry(self, placeholder_text="Título")
         codigo.pack()
