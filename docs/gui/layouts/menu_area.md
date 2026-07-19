@@ -11,7 +11,7 @@ Contém 5 botões de ação, exibidos verticalmente:
 1. Cadastrar
 2. Procurar
 3. Ver Estante
-4. Editar
+4. Atualizar
 5. Excluir
 
 ## Comportamento
@@ -20,6 +20,6 @@ Cada botão aciona a `MainArea`, substituindo o conteúdo atual pelo estado corr
 
 ## Layout
 
-Posicionada na coluna 0 da `MainWindow` com largura fixa.
+Posicionada na coluna 0 da `Window` com largura fixa.
 
 Os botões internos são organizados com `pack()`.
