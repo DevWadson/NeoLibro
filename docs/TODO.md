@@ -104,10 +104,11 @@
 
 - [x] Components
 - [x] Layouts
+- [x] Forms
 
 ### 🚀 Futuro
 
-- [ ] Forms
+- [Nenhuma atividade planejada].
 
 ## 🧪 Testes
 

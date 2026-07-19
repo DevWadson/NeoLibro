@@ -1,6 +1,6 @@
 # Camadas da Aplicação
 
-## GUI
+## Interface
 
 Responsável pela interação com o usuário.
 
@@ -44,7 +44,7 @@ Responsável pelo Domínio.
 
 - models
 
-## Infra
+## Infraestrutura
 
 Responsável pela persistência.
 

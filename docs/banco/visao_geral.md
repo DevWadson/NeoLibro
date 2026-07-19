@@ -18,9 +18,11 @@ O acesso aos dados ocorre por meio da camada Repository.
 
 ## Fonte Primária dos Dados
 
-O banco de dados é considerado a fonte primária das informações do sistema.
+O banco de dados é a fonte de persistência permanente das informações do sistema — é nele que os dados sobrevivem entre execuções.
 
-Embora a Estante seja a principal abstração do domínio, ela não é responsável pelo armazenamento permanente dos dados.
+A Estante, por sua vez, é a fonte de verdade para leitura durante a execução: as operações de consulta são resolvidas inteiramente em memória, contra a Estante, sem acessar o banco.
+
+Embora a Estante seja a principal abstração do domínio, ela não é responsável pelo armazenamento permanente dos dados — esse papel continua sendo do banco.
 
 Essa decisão foi adotada para:
 
@@ -28,67 +30,43 @@ Essa decisão foi adotada para:
 - Evitar concentração excessiva de responsabilidades na Estante;
 - Promover separação adequada entre domínio e infraestrutura.
 
+## Fluxo de Consulta
+
+Nas operações de consulta, a Estante é acessada diretamente através do Serviço.
+
+```text
+Usuário
+  ↓
+Interface
+  ↓
+Aplicação
+  ↓
+  Estante
+  ↓
+Aplicação
+  ↓
+Interface
+  ↓
+Usuário
+```
+
+A consulta não passa pelo Repositório nem pelo Banco de Dados. Isso é possível porque a Estante é populada a partir do banco na inicialização da aplicação — ela funciona como uma cópia em memória, sincronizada no início da execução.
+
 ## Fluxo de Persistência
 
+```markdown
 Usuário
-
-↓
-
+  ↓
 Interface
-
-↓
-
+  ↓
 Aplicação
-
-↓
-
+  ↓
 Estante
-
 ├─ Validação - Falha → Interrompe execução
-
 └─ Validação - Aprovada → Repositório  → Banco de Dados.
 
 Dessa forma, apenas objetos considerados válidos pelo domínio são encaminhados para persistência.
-
-## Fluxo de Consulta
-
-Nas operações de consulta, o banco de dados é acessado diretamente através do Repository.
-
-Usuário
-
-↓
-
-Interface
-
-↓
-
-Aplicação
-
-↓
-
-Repositório
-
-↓
-
-Banco de Dados
-
-↓
-
-Hydration Model → Domain
-
-↓
-
-Aplicação
-
-↓
-
-Interface
-
-↓
-
-Usuário
-
-A consulta não passa pela Estante, uma vez que o banco de dados é a fonte primária das informações do sistema.
+```
 
 ## Tecnologia Usada
 

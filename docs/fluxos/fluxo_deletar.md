@@ -17,8 +17,9 @@ Descrever o processo de deleção no sistema.
 
 1. Usuário solicita deleção de obra;
 2. Interface coleta os critérios;
-3. Serviço coordena a deleção, chamando repositório;
-4. Repositório localiza a obra;
-5. Repositório exclui os dados persistidos;
-6. O sistema retorna resultado para a interface;
-7. Interface exibe mensagem ao usuário.
+3. Serviço coordena a deleção, chamando a Estante;
+4. Estante localiza a obra na coleção;
+5. Estante remove a obra da coleção;
+6. Repositório exclui os dados persistidos;
+7. O resultado é retornado ao serviço;
+8. Interface exibe mensagem ao usuário.

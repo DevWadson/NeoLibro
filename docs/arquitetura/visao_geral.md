@@ -7,12 +7,22 @@ composto por várias camadas com responsabilidades específicas.
 
 ## Estrutura Geral
 
-O sistema está dividido em x níveis:
+O sistema está dividido em 4 níveis:
 
 - Domínio;
 - Infraestrutura;
 - Aplicação;
 - Interface.
+
+```text
+src/
+├── application/
+├── core/
+├── gui/
+└── infra/
+```
+
+Ver [`docs/arquitetura/camadas.md`](docs/arquitetura/camadas.md) para mais detalhes.
 
 ## Fluxo Geral
 

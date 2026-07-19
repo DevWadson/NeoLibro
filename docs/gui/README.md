@@ -11,13 +11,13 @@ gui/
 ├── README.md
 ├── visao_geral.md
 ├── components/
-|    └── botoes_menu.md
+|   └── botoes_menu.md
 ├── layouts/
 |   ├── main_area.md
 |   ├── main_window.md
 |   └── menu_area.md
 └── forms/
-   └── forms.md
+    └── forms.md
 ```
 
 ## `layouts/`
